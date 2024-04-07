@@ -58,8 +58,8 @@ const CreateCharacter = ({ onReload }) => {
   };
 
   return (
-    <Box w="75%" margin={'0 auto'}>
-      <Button _hover={{}} onClick={onOpen} backgroundColor="#005C5C" color="#FFD700" width="100%">
+    <Box w="75%" margin={'0 auto'} display="flex" justifyContent={'center'}>
+      <Button _hover={{}} onClick={onOpen} colorScheme="yellow">
         New Character
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>

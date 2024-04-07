@@ -1,14 +1,17 @@
-import { Box, Button, Checkbox, Container, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Button, Container, Flex, Text, useToast } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { Link, useParams } from 'react-router-dom';
+import QuestBoard from '../components/QuestBoard';
 
 const DailiesPage = () => {
   const [character, setCharacter] = useState();
+  const [completeQuests, setCompleteQuests] = useState([]);
+  const [incompleteQuests, setIncompleteQuests] = useState([]);
   const { fetchWithToken } = useContext(AuthContext);
   const { characterId } = useParams();
-
-  const hideColumns = useBreakpointValue({ base: true, md: false });
+  const toast = useToast();
 
   const fetchInfo = async () => {
     try {
@@ -22,7 +25,11 @@ const DailiesPage = () => {
 
           return a.name.localeCompare(b.name);
         });
+        const completeQuestsArray = data.availableQuests.filter((quest) => quest.isComplete);
+        const incompleteQuestsArray = data.availableQuests.filter((quest) => !quest.isComplete);
         setCharacter(data);
+        setCompleteQuests(completeQuestsArray);
+        setIncompleteQuests(incompleteQuestsArray);
       }
     } catch (error) {
       console.log(error);
@@ -44,6 +51,31 @@ const DailiesPage = () => {
     fetchInfo();
   }, [characterId]);
 
+  const levelUp = async (id) => {
+    try {
+      const response = await fetchWithToken(`/characters/${id}/levelUp`, 'PUT');
+      if (response.status === 202) {
+        toast({ title: 'Character leveled up!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        await fetchInfo();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const resetServer = async (id) => {
+    try {
+      const response = await fetchWithToken(`/characters/${id}/questReset`, 'PUT');
+      if (response.status === 202) {
+        const data = await response.json();
+        toast({ title: data.message, status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        await fetchInfo();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container maxW="xxl">
       <Box d="flex" justifyContent={'center'} p={3} bg={'white'} w={'100%'}>
@@ -56,53 +88,27 @@ const DailiesPage = () => {
           <>
             <Text fontSize={'xl'} align={'center'}>
               {character.name}
-              {"'"}s Dailies
+              {"'"}s Dailies, Level {character.level}
             </Text>
-            <Link to="/dashboard">
-              <Button backgroundColor={'#005C5C'} color="gold" margin="1em 0">
-                Back to your characters
+            <Flex direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+              <Link to="/dashboard">
+                <Button backgroundColor={'#005C5C'} color="gold" margin="1em 0" colorScheme="green">
+                  Back to your characters
+                </Button>
+              </Link>
+              <Button
+                colorScheme="yellow"
+                onClick={() => {
+                  levelUp(character._id);
+                }}
+              >
+                Level Up Character
               </Button>
-            </Link>
-            <TableContainer>
-              <Table variant="striped" colorScheme="teal">
-                <Thead>
-                  <Tr>
-                    <Th textAlign={'center'}>Name</Th>
-                    {!hideColumns && <Th textAlign={'center'}>Starting NPC</Th>}
-                    {!hideColumns && <Th textAlign={'center'}>Requirements</Th>}
-                    <Th textAlign={'center'}>Complete?</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {character.availableQuests.map((quest) => (
-                    <Tr key={quest.uid}>
-                      <Td textAlign={'center'} fontSize={'1em'}>
-                        {quest.name}
-                      </Td>
-                      {!hideColumns && (
-                        <Td textAlign={'center'} fontSize={'1em'}>
-                          {quest.startingNPC}
-                        </Td>
-                      )}
-                      {!hideColumns && (
-                        <Td textAlign={'center'} fontSize={'1em'}>
-                          {quest.requirements}
-                        </Td>
-                      )}
-                      <Td textAlign={'center'}>
-                        <Checkbox
-                          borderColor="black"
-                          isChecked={quest.isComplete}
-                          onChange={() => {
-                            handleChange(quest.uid, !quest.isComplete);
-                          }}
-                        />
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
-            </TableContainer>
+              <Button colorScheme="red" onClick={() => resetServer(character._id)}>
+                Manual Server Reset
+              </Button>
+            </Flex>
+            <QuestBoard completeQuests={completeQuests} incompleteQuests={incompleteQuests} handleChange={handleChange} />
           </>
         )}
       </Box>
