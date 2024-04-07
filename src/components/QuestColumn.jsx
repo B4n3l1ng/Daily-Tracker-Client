@@ -15,7 +15,7 @@ const QuestColumn = ({ title, quests, onMove }) => {
       <Text fontSize="5xl">{title}</Text>
       <Box ref={drop} display="flex" flexDirection="column" justifyContent="flex-start" alignItems="center" width="80%" gap="1em" minH="60vh">
         {quests.map((quest) => (
-          <QuestCard key={quest.uid} quest={quest} />
+          <QuestCard key={quest.uid} quest={quest} onMove={onMove} />
         ))}
       </Box>
     </Flex>
