@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Flex } from '@chakra-ui/react';
 import QuestColumn from './QuestColumn';
 

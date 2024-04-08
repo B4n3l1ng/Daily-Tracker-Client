@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import QuestCard from './QuestCard';
