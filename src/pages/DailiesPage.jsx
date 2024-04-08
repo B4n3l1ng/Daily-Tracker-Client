@@ -79,12 +79,12 @@ const DailiesPage = () => {
 
   return (
     <Container maxW="xxl">
-      <Box d="flex" justifyContent={'center'} p={3} bg={'white'} w={'100%'}>
-        <Text fontSize="4xl" align={'center'}>
+      <Box d="flex" justifyContent={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
+        <Text fontSize="4xl" align={'center'} fontWeight={'bold'}>
           Dailies Tracker
         </Text>
       </Box>
-      <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} bg={'white'} w={'100%'}>
+      <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
         {character && (
           <>
             <Text fontSize={'xl'} align={'center'}>

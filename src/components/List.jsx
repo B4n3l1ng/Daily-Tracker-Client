@@ -34,7 +34,7 @@ const List = ({ list, onReload }) => {
 
   return (
     <Box textAlign={'center'} marginTop="1em" backgroundColor="#005C5C" paddingBottom="1em">
-      <Text fontSize={'4xl'} color="white">
+      <Text fontSize={'4xl'} color="white" as="b">
         Character List
       </Text>
       {list.map((character) => (

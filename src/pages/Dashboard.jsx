@@ -30,15 +30,15 @@ const Dashboard = () => {
 
   return (
     <Container maxW="xxl" centerContent>
-      <Box d="flex" justifyContent={'center'} p={3} bg={'white'} w={'100%'}>
-        <Text fontSize={'4xl'} align={'center'}>
+      <Box d="flex" justifyContent={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
+        <Text fontWeight={'bold'} fontSize={'4xl'} align={'center'}>
           Dashboard
         </Text>
       </Box>
       <Button colorScheme="red" onClick={logout}>
         Logout
       </Button>
-      <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} bg={'white'} w={'100%'}>
+      <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
         <CreateCharacter onReload={fetchCharacters} />
         <List list={characterList} onReload={fetchCharacters} />{' '}
       </Box>

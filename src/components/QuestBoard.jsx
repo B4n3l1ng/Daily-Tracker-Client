@@ -7,7 +7,7 @@ const QuestBoard = ({ completeQuests, incompleteQuests, handleChange }) => {
   };
 
   return (
-    <Flex justifyContent="space-evenly" alignItems="flex-start" gap="10%">
+    <Flex justifyContent="space-evenly" alignItems="flex-start" gap="2%">
       <QuestColumn title="Incomplete" quests={incompleteQuests} onMove={handleMove} />
       <QuestColumn title="Complete" quests={completeQuests} onMove={handleMove} />
     </Flex>

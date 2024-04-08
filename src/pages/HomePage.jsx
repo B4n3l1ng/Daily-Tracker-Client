@@ -17,11 +17,19 @@ const HomePage = () => {
         backgroundColor="#005C5C"
         color="gold"
       >
-        <Text fontSize="4xl" align={'center'}>
+        <Text fontSize="4xl" fontWeight={'bold'} align={'center'}>
           Dailies Tracker
         </Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" color="gold" borderColor="#005C5C" borderWidth="1px" /* backgroundColor="#005C5C" */>
+      <Box
+        backgroundColor={'#E6E6FA'}
+        w="100%"
+        p={4}
+        borderRadius="lg"
+        color="gold"
+        borderColor="#005C5C"
+        borderWidth="1px" /* backgroundColor="#005C5C" */
+      >
         <Tabs variant="soft-rounded" colorScheme="green">
           <TabList mb="1em">
             <Tab w="50%">Login</Tab>
