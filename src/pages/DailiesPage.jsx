@@ -40,7 +40,8 @@ const DailiesPage = () => {
     try {
       const response = await fetchWithToken(`/characters/${character._id}/quest/${uid}`, 'PUT', { isComplete: value });
       if (response.status === 202) {
-        fetchInfo();
+        await fetchInfo();
+        toast({ title: 'Quest state changed!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
       }
     } catch (error) {
       console.log(error);

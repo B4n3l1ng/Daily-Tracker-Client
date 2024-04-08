@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedBouncer from './components/AuthenticatedBouncer';
 import DailiesPage from './pages/DailiesPage';
+import Load from './components/Load';
 
 function App() {
   return (

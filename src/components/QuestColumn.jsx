@@ -11,9 +11,21 @@ const QuestColumn = ({ title, quests, onMove }) => {
   });
 
   return (
-    <Flex flexDirection="column" justifyContent="center" alignItems="center" width="90%">
-      <Text fontSize="5xl">{title}</Text>
-      <Box ref={drop} display="flex" flexDirection="column" justifyContent="flex-start" alignItems="center" width="80%" gap="1em" minH="60vh">
+    <Flex flexDirection="column" justifyContent="center" alignItems="center" width="100%">
+      <Text fontSize="5xl" marginLeft={'-5%'}>
+        {title}
+      </Text>
+      <Box
+        ref={drop}
+        display="flex"
+        flexDirection="row"
+        flexWrap={'wrap'}
+        justifyContent="flex-start"
+        alignItems="center"
+        width="80%"
+        gap="1em"
+        minH="60vh"
+      >
         {quests.map((quest) => (
           <QuestCard key={quest.uid} quest={quest} onMove={onMove} />
         ))}

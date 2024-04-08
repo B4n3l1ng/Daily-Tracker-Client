@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, useBreakpointValue } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { useDrag } from 'react-dnd';
 
@@ -24,15 +24,22 @@ const QuestCard = ({ quest, onMove }) => {
       backgroundColor={isDragging ? 'gray.200' : backgroundColor}
       opacity={isDragging ? 0.5 : 1}
       cursor="move"
-      width="90%"
+      width="40%"
+      textAlign={'center'}
+      minH={'23vh'}
     >
       <Text fontSize="xl" fontWeight="bold" mb="2">
         {quest.name}
       </Text>
-      <Text fontSize="lg">Starting NPC: {quest.startingNPC}</Text>
-      <Text fontSize="lg">Requirements: {quest.requirements.length > 0 ? quest.requirements : 'none'}</Text>
+      <Text fontSize="lg">{quest.startingNPC}</Text>
+      <Text fontSize="lg">{quest.requirements.length > 0 ? quest.requirements : undefined}</Text>
       <br />
-      <Button colorScheme={quest.isComplete ? 'yellow' : 'green'} onClick={() => onMove(quest.uid, quest.isComplete ? 'Incomplete' : 'Complete')}>
+      <Button
+        colorScheme={quest.isComplete ? 'yellow' : 'green'}
+        /* margin={'0 20%'} */
+        onClick={() => onMove(quest.uid, quest.isComplete ? 'Incomplete' : 'Complete')}
+        width={'70%'}
+      >
         Set as {quest.isComplete ? 'Incomplete' : 'Complete'}
       </Button>
     </Box>
