@@ -2,17 +2,20 @@
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import QuestCard from './QuestCard';
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Input } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { Flex } from '@chakra-ui/react';
 
-const QuestColumn = ({ title, quests, onMove }) => {
+const QuestColumn = ({ title, quests, onMove, handleSearch }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState('');
   const questsPerPage = 6;
 
   const [, drop] = useDrop({
     accept: 'QUEST_CARD',
-    drop: (item) => onMove(item.uid, title),
+    drop: (item) => {
+      onMove(item.uid, title);
+    },
   });
 
   // Logic to calculate which quests to display based on current page
@@ -22,6 +25,11 @@ const QuestColumn = ({ title, quests, onMove }) => {
 
   // Function to handle page change
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const handleChange = (input) => {
+    setQuery(input);
+    handleSearch(input);
+  };
 
   return (
     <Flex flexDirection="column" justifyContent="center" alignItems="center" width="100%">
@@ -42,6 +50,19 @@ const QuestColumn = ({ title, quests, onMove }) => {
           </Button>
         ))}
       </Flex>
+      <Input
+        type="text"
+        marginBottom={'1em'}
+        value={query}
+        onChange={(event) => {
+          handleChange(event.target.value);
+        }}
+        placeholder={`Search for ${title.toLowerCase()} quests here`}
+        width="80%"
+        variant="outline"
+        colorScheme={title === 'Complete' ? 'whatsapp' : 'yellow'}
+        backgroundColor="white"
+      />
       <Box
         ref={drop}
         display="flex"
@@ -56,7 +77,7 @@ const QuestColumn = ({ title, quests, onMove }) => {
         backgroundColor={'#E6E6FA'}
       >
         {currentQuests.map((quest) => (
-          <QuestCard key={quest.uid} quest={quest} onMove={onMove} />
+          <QuestCard key={quest.uid} quest={quest} onMove={onMove} setQuery={setQuery} />
         ))}
       </Box>
     </Flex>

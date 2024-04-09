@@ -8,10 +8,32 @@ import QuestBoard from '../components/QuestBoard';
 const DailiesPage = () => {
   const [character, setCharacter] = useState();
   const [completeQuests, setCompleteQuests] = useState([]);
+  const [completeQuestsDisplay, setCompleteQuestsDisplay] = useState(completeQuests);
   const [incompleteQuests, setIncompleteQuests] = useState([]);
+  const [incompleteQuestsDisplay, setIncompleteQuestsDisplay] = useState(incompleteQuests);
   const { fetchWithToken } = useContext(AuthContext);
   const { characterId } = useParams();
   const toast = useToast();
+
+  const handleSearchComplete = (query) => {
+    if (query.length === 0) {
+      setCompleteQuestsDisplay(completeQuests);
+    } else {
+      const copy = JSON.parse(JSON.stringify(completeQuests));
+      const filtered = copy.filter((quest) => quest.name.toLowerCase().includes(query.toLowerCase()));
+      setCompleteQuestsDisplay(filtered);
+    }
+  };
+
+  const handleSearchIncomplete = (query) => {
+    if (query.length === 0) {
+      setIncompleteQuestsDisplay(incompleteQuests);
+    } else {
+      const copy = JSON.parse(JSON.stringify(incompleteQuests));
+      const filtered = copy.filter((quest) => quest.name.toLowerCase().includes(query.toLowerCase()));
+      setIncompleteQuestsDisplay(filtered);
+    }
+  };
 
   const fetchInfo = async () => {
     try {
@@ -29,7 +51,9 @@ const DailiesPage = () => {
         const incompleteQuestsArray = data.availableQuests.filter((quest) => !quest.isComplete);
         setCharacter(data);
         setCompleteQuests(completeQuestsArray);
+        setCompleteQuestsDisplay(completeQuestsArray);
         setIncompleteQuests(incompleteQuestsArray);
+        setIncompleteQuestsDisplay(incompleteQuestsArray);
       }
     } catch (error) {
       console.log(error);
@@ -37,11 +61,18 @@ const DailiesPage = () => {
   };
 
   const handleChange = async (uid, value) => {
+    const isComplete = completeQuests.find((quest) => quest.uid === uid);
+    const isIncomplete = incompleteQuests.find((quest) => quest.uid === uid);
+    if (isComplete && value === true) {
+      return;
+    } else if (isIncomplete && value === false) {
+      return;
+    }
     try {
       const response = await fetchWithToken(`/characters/${character._id}/quest/${uid}`, 'PUT', { isComplete: value });
       if (response.status === 202) {
         await fetchInfo();
-        toast({ title: 'Quest state changed!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Quest updated!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
       }
     } catch (error) {
       console.log(error);
@@ -109,7 +140,13 @@ const DailiesPage = () => {
                 Manual Server Reset
               </Button>
             </Flex>
-            <QuestBoard completeQuests={completeQuests} incompleteQuests={incompleteQuests} handleChange={handleChange} />
+            <QuestBoard
+              completeQuests={completeQuestsDisplay}
+              incompleteQuests={incompleteQuestsDisplay}
+              handleChange={handleChange}
+              handleSearchComplete={handleSearchComplete}
+              handleSearchIncomplete={handleSearchIncomplete}
+            />
           </>
         )}
       </Box>
