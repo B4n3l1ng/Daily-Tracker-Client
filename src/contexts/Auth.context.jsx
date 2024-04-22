@@ -9,13 +9,15 @@ const AuthContextProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [userId, setUserId] = useState();
+  const [isAdmin, setIsAdmin] = useState();
 
   const saveToken = (tokenFromLogin) => {
     setToken(tokenFromLogin);
     setIsAuthenticated(true);
     window.localStorage.setItem('authToken', tokenFromLogin);
-    const { userId } = jwtDecode(tokenFromLogin);
+    const { userId, isAdmin } = jwtDecode(tokenFromLogin);
     setUserId(userId);
+    setIsAdmin(isAdmin);
   };
 
   const verifyToken = async (tokenFromLocalStorage) => {
@@ -27,8 +29,9 @@ const AuthContextProvider = ({ children }) => {
         setIsAuthenticated(true);
         setToken(tokenFromLocalStorage);
         setIsLoading(false);
-        const { userId } = jwtDecode(tokenFromLocalStorage);
+        const { userId, isAdmin } = jwtDecode(tokenFromLocalStorage);
         setUserId(userId);
+        setIsAdmin(isAdmin ? isAdmin : false);
       } else {
         setIsLoading(false);
         window.localStorage.removeItem('authToken');
@@ -71,7 +74,9 @@ const AuthContextProvider = ({ children }) => {
     }
   }, []);
 
-  return <AuthContext.Provider value={{ saveToken, isAuthenticated, isLoading, fetchWithToken, logout, userId }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ saveToken, isAuthenticated, isLoading, fetchWithToken, logout, userId, isAdmin }}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthContextProvider;

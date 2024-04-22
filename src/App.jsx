@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard';
 import PrivateRoute from './components/PrivateRoute';
 import AuthenticatedBouncer from './components/AuthenticatedBouncer';
 import DailiesPage from './pages/DailiesPage';
+import StashPage from './pages/StashPage';
+import ItemDetails from './pages/ItemDetails';
 
 function App() {
   return (
@@ -23,6 +25,22 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/stash"
+          element={
+            <PrivateRoute>
+              <StashPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/stash/:id"
+          element={
+            <PrivateRoute>
+              <ItemDetails />
             </PrivateRoute>
           }
         />

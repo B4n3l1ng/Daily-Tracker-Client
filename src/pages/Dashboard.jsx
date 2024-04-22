@@ -4,6 +4,7 @@ import CreateCharacter from '../components/CreateCharacter';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import List from '../components/List';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [characterList, setCharacterList] = useState([]);
@@ -35,8 +36,11 @@ const Dashboard = () => {
           Dashboard
         </Text>
       </Box>
-      <Button colorScheme="red" onClick={logout}>
+      <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
         Logout
+      </Button>
+      <Button colorScheme="green">
+        <Link to="/stash">Alliance Stash</Link>
       </Button>
       <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
         <CreateCharacter onReload={fetchCharacters} />
