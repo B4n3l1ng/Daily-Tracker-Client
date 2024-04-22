@@ -52,7 +52,7 @@ const ItemDetails = () => {
             <Text>Quantity available: {itemData.quantity}</Text>
             <br />
 
-            <Text>Donated by: {itemData.donatedBy.map((name) => `${name}`)}</Text>
+            <Text>Donated by: {itemData.donatedBy.map((name) => `${name} `)}</Text>
             <br />
             <Text fontWeight={'bold'}>Please contact Eunice, devZey or Lord_Z to request any items from the stash.</Text>
 

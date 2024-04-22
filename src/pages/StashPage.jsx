@@ -3,6 +3,7 @@ import { AuthContext } from '../contexts/Auth.context';
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
+import NewItemModal from '../components/NewItemModal';
 
 const StashPage = () => {
   const [items, setItems] = useState([]);
@@ -24,10 +25,6 @@ const StashPage = () => {
     fetchItems();
   }, []);
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
-
   return (
     <Container maxW="xxl" centerContent>
       <Box d="flex" justifyContent={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
@@ -38,6 +35,7 @@ const StashPage = () => {
       <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
         Logout
       </Button>
+      {isAdmin && <NewItemModal />}
       <Button colorScheme="green">
         <Link to="/dashboard">Dashboard Page</Link>
       </Button>
@@ -49,7 +47,7 @@ const StashPage = () => {
         p={3}
         backgroundColor="#E6E6FA"
         w="100%"
-        gap="5%"
+        gap="7%"
       >
         {items.map((item) => {
           return <ItemCard key={item._id} {...item} />;

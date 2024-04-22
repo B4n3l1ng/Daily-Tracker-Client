@@ -3,23 +3,21 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ItemCard = ({ _id, type, donatedBy, faction, charmPartType, itemName, quantity }) => {
-  const [fullItemName] = useState(type === 'Charm Part' ? `${itemName} - ${charmPartType}` : itemName);
-
   return (
     <Box
       marginTop={'1em'}
-      minH={'25vh'}
+      minH={'20vh'}
       p={3}
       borderWidth="1px"
       borderRadius="md"
       backgroundColor={'green.200'}
-      width="20%"
-      minWidth={['20vw']}
+      width="25%"
+      minWidth={['25vw']}
       textAlign={'center'}
       marginBottom="1em"
     >
       <Text fontSize="xl" as="b" mb="2">
-        {fullItemName}
+        {type === 'Charm Part' ? `${itemName} - ${charmPartType}` : itemName}
       </Text>
       {window.innerWidth > 600 && ( // Hide quantity on smaller screens
         <Text>Quantity available: {quantity}</Text>

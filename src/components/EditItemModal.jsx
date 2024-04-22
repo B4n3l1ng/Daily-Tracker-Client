@@ -85,10 +85,10 @@ const EditItem = ({ quantity, onReload, id }) => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader textAlign={'center'}>New Character</ModalHeader>
+          <ModalHeader textAlign={'center'}>Edit Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl id="level" isRequired marginBottom="1em">
+            <FormControl id="quantity" isRequired marginBottom="1em">
               <FormLabel>Quantity:</FormLabel>
               <NumberInput
                 w={'100%'}
