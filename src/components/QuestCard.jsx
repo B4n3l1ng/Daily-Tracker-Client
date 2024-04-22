@@ -3,7 +3,7 @@ import { Box, Button } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { useDrag } from 'react-dnd';
 
-const QuestCard = ({ quest, onMove }) => {
+const QuestCard = ({ quest, onMove, isLoading }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'QUEST_CARD', // Define the drag item type
     item: { uid: quest.uid },
@@ -40,6 +40,7 @@ const QuestCard = ({ quest, onMove }) => {
         colorScheme={quest.isComplete ? 'yellow' : 'green'}
         /* margin={'0 20%'} */
         onClick={() => onMove(quest.uid, quest.isComplete ? 'Incomplete' : 'Complete')}
+        isLoading={isLoading}
       >
         Set as {quest.isComplete ? 'Incomplete' : 'Complete'}
       </Button>

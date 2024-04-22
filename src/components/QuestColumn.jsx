@@ -6,7 +6,7 @@ import { Box, Button, Input } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { Flex } from '@chakra-ui/react';
 
-const QuestColumn = ({ title, quests, onMove, handleSearch }) => {
+const QuestColumn = ({ title, quests, onMove, handleSearch, isLoading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState('');
   const questsPerPage = 6;
@@ -77,7 +77,7 @@ const QuestColumn = ({ title, quests, onMove, handleSearch }) => {
         backgroundColor={'#E6E6FA'}
       >
         {currentQuests.map((quest) => (
-          <QuestCard key={quest.uid} quest={quest} onMove={onMove} setQuery={setQuery} />
+          <QuestCard key={quest.uid} quest={quest} onMove={onMove} setQuery={setQuery} isLoading={isLoading} />
         ))}
       </Box>
     </Flex>
