@@ -24,10 +24,11 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
 
-const EditItem = ({ donatedBy, quantity, onReload, id }) => {
+const EditItem = ({ donatedBy, quantity, onReload, stashToon, id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newQuantity, setNewQuantity] = useState(quantity);
   const [newDonatedBy, setNewDonatedBy] = useState(donatedBy ? donatedBy.join(' ') : '');
+  const [newStashToon, setNewStashToon] = useState(stashToon);
   const [isLoading, setIsLoading] = useState(false);
   const { fetchWithToken } = useContext(AuthContext);
   const toast = useToast();
@@ -107,10 +108,14 @@ const EditItem = ({ donatedBy, quantity, onReload, id }) => {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
-              <FormLabel>Donated by:</FormLabel>
             </FormControl>
-            <FormControl id="donatedBy">
+            <FormControl id="donatedBy" isRequired marginBottom="1em">
+              <FormLabel>Donated by:</FormLabel>
               <Input value={newDonatedBy} onChange={(event) => setNewDonatedBy(event.target.value)} placeholder="Player names seperated by spaces" />
+            </FormControl>
+            <FormControl id="stashToon" isRequired marginBottom="1em">
+              <FormLabel>Stash Toon:</FormLabel>
+              <Input value={newStashToon} onChange={(event) => setNewStashToon(event.target.value)} />
             </FormControl>
             <Flex alignItems={'center'} justifyContent={'space-between'}>
               <Button onClick={onSubmit} isLoading={isLoading} backgroundColor="#005C5C" color="#FFD700" width="45%" style={{ marginTop: 15 }}>

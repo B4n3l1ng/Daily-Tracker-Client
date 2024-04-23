@@ -31,6 +31,8 @@ const ItemDetails = () => {
     fetchItemInfo();
   }, [id]);
 
+  console.log(itemData);
+
   return (
     <>
       {!itemData && !errorMessage ? (
@@ -69,11 +71,19 @@ const ItemDetails = () => {
             <Text>Quantity available: {itemData.quantity}</Text>
             <br />
 
-            {itemData.donatedBy ? <Text>Donated by: {itemData.donatedBy.map((name) => `${name} `)}</Text> : undefined}
+            {itemData.donatedBy.length !== 0 ? <Text>Donated by: {itemData.donatedBy.map((name) => `${name} `)}</Text> : undefined}
             <br />
-            <Text fontWeight={'bold'}>Please contact Eunice, devZey or Lord_Z to request any items from the stash.</Text>
+            {itemData.stashToon?.length > 1 ? <Text>On toon {itemData.stashToon}</Text> : undefined}
             <Flex justifyContent={'center'} alignContent={'center'} margin="1em 0">
-              {isAdmin && <EditItem donatedBy={itemData.donatedBy} quantity={itemData.quantity} onReload={fetchItemInfo} id={id} />}
+              {isAdmin && (
+                <EditItem
+                  donatedBy={itemData.donatedBy}
+                  quantity={itemData.quantity}
+                  stashToon={itemData.stashToon}
+                  onReload={fetchItemInfo}
+                  id={id}
+                />
+              )}
               {isAdmin && (
                 <GiveItemModal
                   originalQuantity={itemData.quantity}
