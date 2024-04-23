@@ -32,13 +32,19 @@ const StashPage = () => {
           Alliance Stash
         </Text>
       </Box>
-      <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
-        Logout
-      </Button>
-      {isAdmin && <NewItemModal />}
-      <Button colorScheme="green">
-        <Link to="/dashboard">Dashboard Page</Link>
-      </Button>
+      <Flex justifyContent={'space-evenly'} width="100%">
+        <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
+          Logout
+        </Button>
+        {isAdmin && <NewItemModal />}
+        <Button colorScheme="purple">
+          <Link to="/removals">Removals</Link>
+        </Button>
+        <Button colorScheme="green">
+          <Link to="/dashboard">Dashboard Page</Link>
+        </Button>
+      </Flex>
+
       <Flex
         flexDirection={'row'}
         alignItems={'center'}

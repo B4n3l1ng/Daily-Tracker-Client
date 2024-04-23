@@ -16,6 +16,7 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  Text,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
@@ -23,9 +24,10 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
 
-const EditItem = ({ quantity, onReload, id }) => {
+const EditItem = ({ donatedBy, quantity, onReload, id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newQuantity, setNewQuantity] = useState(quantity);
+  const [newDonatedBy, setNewDonatedBy] = useState(donatedBy ? donatedBy.join(' ') : '');
   const [isLoading, setIsLoading] = useState(false);
   const { fetchWithToken } = useContext(AuthContext);
   const toast = useToast();
@@ -33,7 +35,7 @@ const EditItem = ({ quantity, onReload, id }) => {
 
   const onSubmit = async () => {
     try {
-      const reqBody = { newQuantity };
+      const reqBody = { newQuantity, newDonatedBy: newDonatedBy.split(' ') };
       const response = await fetchWithToken(`/items/${id}`, 'PUT', reqBody);
       if (response.status === 202) {
         toast({ title: 'Item Update Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
@@ -78,7 +80,7 @@ const EditItem = ({ quantity, onReload, id }) => {
   };
 
   return (
-    <Box w="75%" margin={'0 auto'} marginTop="1em" display="flex" justifyContent={'center'} backgroundColor={'transparent'}>
+    <Box w="75%" margin={'0 auto'} display="flex" justifyContent={'center'} backgroundColor={'transparent'}>
       <Button _hover={{}} onClick={onOpen} colorScheme="red">
         Edit Item
       </Button>
@@ -105,6 +107,10 @@ const EditItem = ({ quantity, onReload, id }) => {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
+              <FormLabel>Donated by:</FormLabel>
+            </FormControl>
+            <FormControl id="donatedBy">
+              <Input value={newDonatedBy} onChange={(event) => setNewDonatedBy(event.target.value)} placeholder="Player names seperated by spaces" />
             </FormControl>
             <Flex alignItems={'center'} justifyContent={'space-between'}>
               <Button onClick={onSubmit} isLoading={isLoading} backgroundColor="#005C5C" color="#FFD700" width="45%" style={{ marginTop: 15 }}>

@@ -32,13 +32,16 @@ const NewItemModal = () => {
   const [charmPartType, setCharmPartType] = useState('');
   const [faction, setFaction] = useState('');
   const [name, setName] = useState('');
+  const [stashToon, setStashToon] = useState('');
   const [quantity, setQuantity] = useState(1);
   const { fetchWithToken } = useContext(AuthContext);
   const [donatedBy, setDonatedBy] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
 
   const onSubmit = async () => {
+    setIsLoading(true);
     try {
       const reqBody = {
         type,
@@ -47,13 +50,18 @@ const NewItemModal = () => {
         itemName: name,
         donatedBy: donatedBy.split(' '),
         quantity,
+        stashToon,
       };
       const response = await fetchWithToken('/items', 'POST', reqBody);
       if (response.status === 201) {
-        toast({ title: 'Item Creaion Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item Creation Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
         const data = await response.json();
+        setIsLoading(false);
         onClose();
         navigate(`/stash/${data._id}`);
+      } else {
+        toast({ title: 'Item Creation Failed, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -61,7 +69,7 @@ const NewItemModal = () => {
   };
 
   return (
-    <Box w="75%" margin={'0 auto'} display="flex" justifyContent={'center'} backgroundColor={'transparent'}>
+    <>
       <Button _hover={{}} onClick={onOpen} colorScheme="blue" marginBottom={'1em'}>
         New Item
       </Button>
@@ -119,17 +127,21 @@ const NewItemModal = () => {
                 </NumberInputStepper>
               </NumberInput>
             </FormControl>
-            <FormControl isRequired={true} id="donated">
+            <FormControl id="donated">
               <FormLabel>Donated By:</FormLabel>
               <Input value={donatedBy} placeholder="Player names seperated by spaces" onChange={(event) => setDonatedBy(event.target.value)} />
             </FormControl>
-            <Button onClick={onSubmit} /* isLoading={isLoading} */ backgroundColor="#005C5C" color="#FFD700" width="100%" style={{ marginTop: 15 }}>
+            <FormControl id="stash">
+              <FormLabel>Stash Toon Name:</FormLabel>
+              <Input value={stashToon} onChange={(event) => setStashToon(event.target.value)} />
+            </FormControl>
+            <Button onClick={onSubmit} isLoading={isLoading} backgroundColor="#005C5C" color="#FFD700" width="100%" style={{ marginTop: 15 }}>
               Create
             </Button>
           </ModalBody>
         </ModalContent>
       </Modal>
-    </Box>
+    </>
   );
 };
 

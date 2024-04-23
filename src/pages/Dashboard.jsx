@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [characterList, setCharacterList] = useState([]);
-  const { fetchWithToken, logout } = useContext(AuthContext);
+  const { fetchWithToken, logout, isAdmin } = useContext(AuthContext);
 
   const fetchCharacters = async () => {
     try {
@@ -39,9 +39,11 @@ const Dashboard = () => {
       <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
         Logout
       </Button>
-      <Button colorScheme="green">
-        <Link to="/stash">Alliance Stash</Link>
-      </Button>
+      {isAdmin && (
+        <Button colorScheme="green">
+          <Link to="/stash">Alliance Stash</Link>
+        </Button>
+      )}
       <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
         <CreateCharacter onReload={fetchCharacters} />
         <List list={characterList} onReload={fetchCharacters} />{' '}

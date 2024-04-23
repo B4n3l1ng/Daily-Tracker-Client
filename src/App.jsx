@@ -7,6 +7,8 @@ import AuthenticatedBouncer from './components/AuthenticatedBouncer';
 import DailiesPage from './pages/DailiesPage';
 import StashPage from './pages/StashPage';
 import ItemDetails from './pages/ItemDetails';
+import IsAdmin from './components/isAdmin';
+import RemovalsPage from './pages/RemovalsPage';
 
 function App() {
   return (
@@ -31,17 +33,25 @@ function App() {
         <Route
           path="/stash"
           element={
-            <PrivateRoute>
+            <IsAdmin>
               <StashPage />
-            </PrivateRoute>
+            </IsAdmin>
           }
         />
         <Route
           path="/stash/:id"
           element={
-            <PrivateRoute>
+            <IsAdmin>
               <ItemDetails />
-            </PrivateRoute>
+            </IsAdmin>
+          }
+        />
+        <Route
+          path="/removals"
+          element={
+            <IsAdmin>
+              <RemovalsPage />
+            </IsAdmin>
           }
         />
         <Route
