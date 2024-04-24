@@ -32,6 +32,18 @@ const List = ({ list, onReload }) => {
     }
   };
 
+  const ascendCharacter = async (id) => {
+    try {
+      const response = await fetchWithToken(`/characters/${id}/ascend`, 'PUT');
+      if (response.status === 202) {
+        toast({ title: 'Character ascended and reset to 15!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        await onReload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Box textAlign={'center'} marginTop="1em" backgroundColor="#005C5C" paddingBottom="1em">
       <Text fontSize={'4xl'} color="white" as="b">
@@ -68,6 +80,9 @@ const List = ({ list, onReload }) => {
             </Button>
             <Button colorScheme="yellow" size="sm" minW="25%" onClick={() => levelUp(character._id)}>
               Level Up
+            </Button>
+            <Button colorScheme="blue" size="sm" minW="25%" onClick={() => ascendCharacter(character._id)}>
+              Ascend
             </Button>
           </Flex>
         </Flex>

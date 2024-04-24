@@ -58,7 +58,7 @@ const CreateCharacter = ({ onReload }) => {
   };
 
   return (
-    <Box w="75%" margin={'0 auto'} display="flex" justifyContent={'center'} backgroundColor={'#E6E6FA'}>
+    <>
       <Button _hover={{}} onClick={onOpen} colorScheme="yellow">
         New Character
       </Button>
@@ -96,7 +96,7 @@ const CreateCharacter = ({ onReload }) => {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </Box>
+    </>
   );
 };
 

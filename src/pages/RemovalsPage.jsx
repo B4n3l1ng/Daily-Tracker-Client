@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Table, TableCaption, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,6 @@ const RemovalsPage = () => {
       const response = await fetchWithToken('/items/removals');
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         setRemovals(data);
       }
     } catch (error) {
@@ -46,10 +45,12 @@ const RemovalsPage = () => {
       <TableContainer>
         <Table>
           <Thead>
-            <Th>Item Name</Th>
-            <Th>Item Type</Th>
-            <Th>Quantity</Th>
-            <Th>Given to</Th>
+            <Tr>
+              <Th>Item Name</Th>
+              <Th>Item Type</Th>
+              <Th>Quantity</Th>
+              <Th>Given to</Th>
+            </Tr>
           </Thead>
           <Tbody>
             {removals.map((item) => (

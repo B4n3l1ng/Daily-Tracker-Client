@@ -36,7 +36,7 @@ const EditItem = ({ donatedBy, quantity, onReload, stashToon, id }) => {
 
   const onSubmit = async () => {
     try {
-      const reqBody = { newQuantity, newDonatedBy: newDonatedBy.split(' ') };
+      const reqBody = { newQuantity, newDonatedBy: newDonatedBy.split(' '), newStashToon };
       const response = await fetchWithToken(`/items/${id}`, 'PUT', reqBody);
       if (response.status === 202) {
         toast({ title: 'Item Update Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });

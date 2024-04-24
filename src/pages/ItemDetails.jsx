@@ -23,15 +23,13 @@ const ItemDetails = () => {
         setErrorMessage('Item not found');
       }
     } catch (error) {
-      console.log('error', error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
     fetchItemInfo();
   }, [id]);
-
-  console.log(itemData);
 
   return (
     <>

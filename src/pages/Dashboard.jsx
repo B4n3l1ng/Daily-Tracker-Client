@@ -1,4 +1,4 @@
-import { Box, Button, Container, Text } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Text } from '@chakra-ui/react';
 
 import CreateCharacter from '../components/CreateCharacter';
 import { useContext, useEffect, useState } from 'react';
@@ -36,16 +36,19 @@ const Dashboard = () => {
           Dashboard
         </Text>
       </Box>
-      <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
-        Logout
-      </Button>
-      {isAdmin && (
-        <Button colorScheme="green">
-          <Link to="/stash">Alliance Stash</Link>
+      <Flex width="100%" justifyContent={'space-evenly'}>
+        <Button colorScheme="red" onClick={logout}>
+          Logout
         </Button>
-      )}
-      <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
+        {isAdmin && (
+          <Button colorScheme="green">
+            <Link to="/stash">Alliance Stash</Link>
+          </Button>
+        )}
         <CreateCharacter onReload={fetchCharacters} />
+      </Flex>
+
+      <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
         <List list={characterList} onReload={fetchCharacters} />{' '}
       </Box>
     </Container>
