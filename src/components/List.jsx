@@ -1,12 +1,31 @@
 /* eslint-disable react/prop-types */
-import { Box, Button, Flex, Text, useToast } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  useToast,
+  useMediaQuery,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+  useBreakpointValue,
+} from '@chakra-ui/react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Auth.context';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 const List = ({ list, onReload }) => {
   const { fetchWithToken } = useContext(AuthContext);
   const toast = useToast();
+  const isSmallerThan768 = useBreakpointValue({ base: true, md: false }, { fallback: false });
+  const navigate = useNavigate();
 
   const deleteCharacter = async (id) => {
     try {
@@ -61,30 +80,45 @@ const List = ({ list, onReload }) => {
           color="#FFD700"
           flexWrap={'wrap'}
           rowGap={'1em'}
+          alignItems={'center'}
         >
-          <Flex minW="50%" justifyContent={'space-evenly'} gap="1em" alignContent={'center'}>
-            <Text minW="50%" padding="0">
-              {character.name}
-            </Text>
+          <Flex minW="40%" justifyContent={'space-evenly'} gap="1em" alignContent={'center'}>
+            <Text fontSize={'xl'}>{character.name}</Text>
 
-            <Text minW="60%">Level {character.level}</Text>
+            <Text fontSize={'xl'}>Level {character.level}</Text>
           </Flex>
-          <Flex minW="50%" justifyContent={'space-evenly'} gap="1em" alignContent={'center'}>
-            <Link to={`/character/${character._id}`}>
-              <Button size="sm" minW="25%" colorScheme="yellow">
-                Dailies
+          {isSmallerThan768 ? (
+            <Menu>
+              <MenuButton as={Button} colorScheme="blue" rightIcon={<ChevronDownIcon />}>
+                Character Actions
+              </MenuButton>
+              <MenuList color="black">
+                <MenuItem onClick={() => navigate(`/character/${character._id}`)}>See Dailies</MenuItem>
+                <MenuItem color="red" onClick={() => deleteCharacter(character._id)}>
+                  Delete Character
+                </MenuItem>
+                <MenuItem onClick={() => levelUp(character._id)}>Level Up Character</MenuItem>
+                <MenuItem onClick={() => ascendCharacter(character._id)}>Ascend Character</MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Flex minW="60%" justifyContent={'space-evenly'} gap="0.5em" alignContent={'center'}>
+              <Link to={`/character/${character._id}`}>
+                <Button size="sm" minW="20%" colorScheme="yellow">
+                  Dailies
+                </Button>
+              </Link>
+              <Button colorScheme="red" size="sm" minW="20%" onClick={() => deleteCharacter(character._id)}>
+                Delete
               </Button>
-            </Link>
-            <Button colorScheme="red" size="sm" minW="25%" onClick={() => deleteCharacter(character._id)}>
-              Delete
-            </Button>
-            <Button colorScheme="yellow" size="sm" minW="25%" onClick={() => levelUp(character._id)}>
-              Level Up
-            </Button>
-            <Button colorScheme="blue" size="sm" minW="25%" onClick={() => ascendCharacter(character._id)}>
-              Ascend
-            </Button>
-          </Flex>
+              <Button colorScheme="yellow" size="sm" minW="20%" onClick={() => levelUp(character._id)}>
+                Level Up
+              </Button>
+              <Button colorScheme="blue" size="sm" minW="20%" marginRight="1em" onClick={() => ascendCharacter(character._id)}>
+                Ascend
+              </Button>
+            </Flex>
+          )}
         </Flex>
       ))}
     </Box>
