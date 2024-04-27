@@ -1,12 +1,14 @@
-import { Button, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from '@chakra-ui/react';
+import { Button, Checkbox, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Auth.context';
+import { useEffect } from 'react';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [stayLoggedIn, setStayLoggedIn] = useState(false);
   const [show, setShow] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +30,7 @@ const Login = () => {
       return;
     }
 
-    const reqBody = { username, password };
+    const reqBody = { username, password, stayLoggedIn };
     try {
       const config = { headers: { 'Content-Type': 'application/json' } };
 
@@ -54,6 +56,7 @@ const Login = () => {
       }
     }
   };
+
   return (
     <VStack spacing="5px">
       <FormControl id="Username-login" isRequired>
@@ -78,11 +81,16 @@ const Login = () => {
             color="#005C5C"
           />
           <InputRightElement>
-            <Button h="1.75rem" size="sm" color="gold" backgroundColor="#005C5C" onClick={handleClick}>
+            <Button h="1.75rem" size="sm" color="gold" _hover={{}} backgroundColor="#005C5C" onClick={handleClick}>
               {show ? 'Hide' : 'Show'}
             </Button>
           </InputRightElement>
         </InputGroup>
+      </FormControl>
+      <FormControl marginTop="1em">
+        <Checkbox color="green" colorScheme="green" checked={stayLoggedIn} onChange={(e) => setStayLoggedIn(e.target.checked)}>
+          Stay logged in
+        </Checkbox>
       </FormControl>
       <Button backgroundColor="#005C5C" width="50%" style={{ marginTop: 15 }} color="#FFD700" onClick={handleSubmit} isLoading={isLoading}>
         Login

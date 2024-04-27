@@ -22,7 +22,7 @@ const HomePage = () => {
         </Text>
       </Box>
       <Box
-        backgroundColor={'#E6E6FA'}
+        backgroundColor="white"
         w="100%"
         p={4}
         borderRadius="lg"

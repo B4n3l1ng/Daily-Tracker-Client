@@ -98,7 +98,9 @@ const List = ({ list, onReload }) => {
                   Delete Character
                 </MenuItem>
                 <MenuItem onClick={() => levelUp(character._id)}>Level Up Character</MenuItem>
-                <MenuItem onClick={() => ascendCharacter(character._id)}>Ascend Character</MenuItem>
+                <MenuItem isDisabled={character.isAscended} onClick={() => ascendCharacter(character._id)}>
+                  Ascend Character
+                </MenuItem>
               </MenuList>
             </Menu>
           ) : (
@@ -114,7 +116,14 @@ const List = ({ list, onReload }) => {
               <Button colorScheme="yellow" size="sm" minW="20%" onClick={() => levelUp(character._id)}>
                 Level Up
               </Button>
-              <Button colorScheme="blue" size="sm" minW="20%" marginRight="1em" onClick={() => ascendCharacter(character._id)}>
+              <Button
+                isDisabled={character.isAscended}
+                colorScheme="blue"
+                size="sm"
+                minW="20%"
+                marginRight="1em"
+                onClick={() => ascendCharacter(character._id)}
+              >
                 Ascend
               </Button>
             </Flex>

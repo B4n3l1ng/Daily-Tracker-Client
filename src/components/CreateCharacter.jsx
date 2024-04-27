@@ -2,6 +2,7 @@
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormLabel,
   Input,
@@ -26,6 +27,7 @@ const CreateCharacter = ({ onReload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState('');
   const [level, setLevel] = useState(1);
+  const [isAscended, setIsAscended] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { fetchWithToken } = useContext(AuthContext);
   const toast = useToast();
@@ -33,7 +35,7 @@ const CreateCharacter = ({ onReload }) => {
   const onSubmit = async () => {
     setIsLoading(true);
     try {
-      const reqBody = { name, level };
+      const reqBody = { name, level, isAscended };
       const response = await fetchWithToken('/characters', 'POST', reqBody);
       if (response.status === 201) {
         toast({ title: 'Creation Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
@@ -89,6 +91,11 @@ const CreateCharacter = ({ onReload }) => {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
+            </FormControl>
+            <FormControl id="ascended">
+              <Checkbox checked={isAscended} onChange={(event) => setIsAscended(event.target.checked)} colorScheme="green">
+                Ascended?
+              </Checkbox>
             </FormControl>
             <Button onClick={onSubmit} isLoading={isLoading} backgroundColor="#005C5C" color="#FFD700" width="100%" style={{ marginTop: 15 }}>
               Create

@@ -24,8 +24,9 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
 
-const EditItem = ({ donatedBy, quantity, onReload, stashToon, id }) => {
+const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [newName, setNewName] = useState(itemName);
   const [newQuantity, setNewQuantity] = useState(quantity);
   const [newDonatedBy, setNewDonatedBy] = useState(donatedBy ? donatedBy.join(' ') : '');
   const [newStashToon, setNewStashToon] = useState(stashToon);
@@ -36,7 +37,7 @@ const EditItem = ({ donatedBy, quantity, onReload, stashToon, id }) => {
 
   const onSubmit = async () => {
     try {
-      const reqBody = { newQuantity, newDonatedBy: newDonatedBy.split(' '), newStashToon };
+      const reqBody = { newQuantity, newDonatedBy: newDonatedBy.split(' '), newStashToon, newName };
       const response = await fetchWithToken(`/items/${id}`, 'PUT', reqBody);
       if (response.status === 202) {
         toast({ title: 'Item Update Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
@@ -91,6 +92,10 @@ const EditItem = ({ donatedBy, quantity, onReload, stashToon, id }) => {
           <ModalHeader textAlign={'center'}>Edit Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <FormControl id="itemName" isRequired>
+              <FormLabel>Item name:</FormLabel>
+              <Input value={newName} onChange={(event) => setNewName(event.target.value)} />
+            </FormControl>
             <FormControl id="quantity" isRequired marginBottom="1em">
               <FormLabel>Quantity:</FormLabel>
               <NumberInput

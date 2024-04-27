@@ -128,11 +128,13 @@ const DailiesPage = () => {
                   Back to your characters
                 </Button>
               </Link>
+
               <Button
                 colorScheme="yellow"
                 onClick={() => {
                   levelUp(character._id);
                 }}
+                isDisabled={character.level >= 150}
               >
                 Level Up Character
               </Button>

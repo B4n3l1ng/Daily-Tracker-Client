@@ -75,6 +75,7 @@ const ItemDetails = () => {
             <Flex justifyContent={'center'} alignContent={'center'} margin="1em 0">
               {isAdmin && (
                 <EditItem
+                  itemName={itemData.itemName}
                   donatedBy={itemData.donatedBy}
                   quantity={itemData.quantity}
                   stashToon={itemData.stashToon}
