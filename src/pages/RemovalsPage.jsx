@@ -12,6 +12,7 @@ const RemovalsPage = () => {
       const response = await fetchWithToken('/items/removals');
       if (response.status === 200) {
         const data = await response.json();
+        console.log(data);
         setRemovals(data);
       }
     } catch (error) {
