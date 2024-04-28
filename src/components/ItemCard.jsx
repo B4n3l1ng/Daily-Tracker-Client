@@ -23,9 +23,11 @@ const ItemCard = ({ _id, type, donatedBy, faction, charmPartType, itemName, quan
         <Text color={quantity === 0 ? 'red' : null}>Quantity available: {quantity}</Text>
       )}
       <br />
-      <Button colorScheme="yellow" m={3}>
-        <Link to={`/stash/${_id}`}>More Info</Link>
-      </Button>
+      <Link to={`/stash/${_id}`} width="100%">
+        <Button colorScheme="yellow" m={3}>
+          More Info
+        </Button>
+      </Link>
     </Box>
   );
 };

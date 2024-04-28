@@ -34,12 +34,12 @@ const RemovalsPage = () => {
           <Button colorScheme="red" onClick={logout}>
             Logout
           </Button>
-          <Button colorScheme="blue">
-            <Link to="/stash">Stash</Link>
-          </Button>
-          <Button colorScheme="green">
-            <Link to="/dashboard">Dashboard Page</Link>
-          </Button>
+          <Link to="/stash">
+            <Button colorScheme="blue">Stash</Button>
+          </Link>
+          <Link to="/dashboard">
+            <Button colorScheme="green">Dashboard Page</Button>
+          </Link>
         </Flex>
       </Box>
 

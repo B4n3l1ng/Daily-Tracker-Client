@@ -53,9 +53,11 @@ const ItemDetails = () => {
               Item Details
             </Text>
           </Box>
-          <Button marginX="auto" colorScheme="green">
-            <Link to="/stash">Back to all items</Link>
-          </Button>
+          <Link to="/stash">
+            <Button marginX="auto" colorScheme="green">
+              Back to all items
+            </Button>
+          </Link>
           <Box width="60%" backgroundColor={'green.200'} textAlign={'center'} marginTop="1em" marginX="auto" p={3}>
             <Text fontSize={'2xl'} fontWeight={'bold'}>
               {itemData.itemName}

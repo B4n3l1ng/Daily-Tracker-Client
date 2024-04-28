@@ -47,9 +47,9 @@ const Dashboard = () => {
               Logout
             </Button>
             {isAdmin && (
-              <Button colorScheme="green">
-                <Link to="/stash">Alliance Stash</Link>
-              </Button>
+              <Link to="/stash">
+                <Button colorScheme="green">Alliance Stash</Button>
+              </Link>
             )}
             <CreateCharacter onReload={fetchCharacters} />
           </Flex>

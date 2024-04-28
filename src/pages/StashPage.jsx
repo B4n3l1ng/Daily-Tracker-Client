@@ -104,12 +104,12 @@ const StashPage = () => {
                   New Item
                 </Button>
               )}
-              <Button colorScheme="purple">
-                <Link to="/removals">Removals</Link>
-              </Button>
-              <Button colorScheme="green">
-                <Link to="/dashboard">Dashboard Page</Link>
-              </Button>
+              <Link to="/removals">
+                <Button colorScheme="purple">Removals</Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button colorScheme="green">Dashboard Page</Button>
+              </Link>
             </Flex>
             <Flex alignItems={'center'} justifyContent={'space-evenly'} width="90%" gap="2em">
               <Menu closeOnSelect={false}>
