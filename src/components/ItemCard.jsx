@@ -20,7 +20,7 @@ const ItemCard = ({ _id, type, donatedBy, faction, charmPartType, itemName, quan
         {type === 'Charm Part' ? `${itemName} - ${charmPartType}` : itemName}
       </Text>
       {window.innerWidth > 600 && ( // Hide quantity on smaller screens
-        <Text>Quantity available: {quantity}</Text>
+        <Text color={quantity === 0 ? 'red' : null}>Quantity available: {quantity}</Text>
       )}
       <br />
       <Button colorScheme="yellow" m={3}>

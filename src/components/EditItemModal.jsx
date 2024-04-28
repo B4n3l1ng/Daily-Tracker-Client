@@ -104,7 +104,7 @@ const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) =>
                   setNewQuantity(value);
                 }}
                 value={newQuantity}
-                min={1}
+                min={0}
                 max={150}
               >
                 <NumberInputField />

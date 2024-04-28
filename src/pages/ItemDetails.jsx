@@ -66,7 +66,7 @@ const ItemDetails = () => {
               Type: {itemData.type} {itemData.faction ? ` for ${itemData.faction}` : null}
             </Text>
             <br />
-            <Text>Quantity available: {itemData.quantity}</Text>
+            <Text color={itemData.quantity === 0 ? 'red' : null}>Quantity available: {itemData.quantity}</Text>
             <br />
 
             {itemData.donatedBy.length !== 0 ? <Text>Donated by: {itemData.donatedBy.map((name) => `${name} `)}</Text> : undefined}

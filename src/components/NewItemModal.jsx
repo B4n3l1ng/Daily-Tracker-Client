@@ -1,7 +1,5 @@
 import {
-  Box,
   Button,
-  Flex,
   FormControl,
   FormLabel,
   Input,
@@ -17,7 +15,6 @@ import {
   NumberInputField,
   NumberInputStepper,
   Select,
-  useDisclosure,
   useToast,
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
@@ -63,6 +60,8 @@ const NewItemModal = ({ onReload, isOpen, onClose }) => {
         setIsLoading(false);
       }
     } catch (error) {
+      toast({ title: 'Item Creation Failed, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+      setIsLoading(false);
       console.log(error);
     }
   };
@@ -114,7 +113,7 @@ const NewItemModal = ({ onReload, isOpen, onClose }) => {
           </FormControl>
           <FormControl isRequired={true} id="quantity">
             <FormLabel>Quantity:</FormLabel>
-            <NumberInput value={quantity} onChange={(value) => setQuantity(value)} min={1}>
+            <NumberInput value={quantity} onChange={(value) => setQuantity(value)} min={0}>
               <NumberInputField />
               <NumberInputStepper>
                 <NumberIncrementStepper />

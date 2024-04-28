@@ -50,17 +50,21 @@ const RemovalsPage = () => {
               <Th>Item Type</Th>
               <Th>Quantity</Th>
               <Th>Given to</Th>
+              <Th>Given by</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {removals.map((item) => (
-              <Tr key={item._id}>
-                <Td>{item.itemType === 'Charm Part' ? `${item.itemName} - ${item.itemCharmPartType}` : item.itemName}</Td>
-                <Td>{item.itemType}</Td>
-                <Td>{item.quantityRemoved}</Td>
-                <Td>{item.removedBy}</Td>
-              </Tr>
-            ))}
+            {removals.map((item) => {
+              return (
+                <Tr key={item._id}>
+                  <Td>{item.itemType === 'Charm Part' ? `${item.itemName} - ${item.itemCharmPartType}` : item.itemName}</Td>
+                  <Td>{item.itemType}</Td>
+                  <Td>{item.quantityRemoved}</Td>
+                  <Td>{typeof item.givenTo === 'string' && item.givenTo}</Td>
+                  <Td>{typeof item.removedBy === 'object' && item.removedBy.username}</Td>
+                </Tr>
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>
