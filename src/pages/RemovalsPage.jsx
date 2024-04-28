@@ -60,7 +60,10 @@ const RemovalsPage = () => {
                   <Td>{item.itemType === 'Charm Part' ? `${item.itemName} - ${item.itemCharmPartType}` : item.itemName}</Td>
                   <Td>{item.itemType}</Td>
                   <Td>{item.quantityRemoved}</Td>
-                  <Td>{typeof item.givenTo === 'string' && item.givenTo}</Td>
+                  <Td>
+                    {typeof item.givenTo === 'string' && item.givenTo}
+                    {typeof item.removedBy === 'string' && item.removedBy}
+                  </Td>
                   <Td>{typeof item.removedBy === 'object' && item.removedBy.username}</Td>
                 </Tr>
               );
