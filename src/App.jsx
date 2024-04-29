@@ -9,6 +9,7 @@ import StashPage from './pages/StashPage';
 import ItemDetails from './pages/ItemDetails';
 import IsAdmin from './components/isAdmin';
 import RemovalsPage from './pages/RemovalsPage';
+import UsersList from './pages/UsersList';
 
 function App() {
   return (
@@ -60,6 +61,14 @@ function App() {
             <PrivateRoute>
               <DailiesPage />
             </PrivateRoute>
+          }
+        />
+        <Route
+          path="/users"
+          element={
+            <IsAdmin>
+              <UsersList />
+            </IsAdmin>
           }
         />
       </Routes>
