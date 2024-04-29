@@ -46,11 +46,11 @@ const Dashboard = () => {
             <Button colorScheme="red" onClick={logout}>
               Logout
             </Button>
-            {isAdmin && (
-              <Link to="/stash">
-                <Button colorScheme="green">Alliance Stash</Button>
-              </Link>
-            )}
+
+            <Link to="/stash">
+              <Button colorScheme="green">Alliance Stash</Button>
+            </Link>
+
             <CreateCharacter onReload={fetchCharacters} />
           </Flex>
 

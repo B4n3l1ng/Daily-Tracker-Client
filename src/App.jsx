@@ -33,17 +33,17 @@ function App() {
         <Route
           path="/stash"
           element={
-            <IsAdmin>
+            <PrivateRoute>
               <StashPage />
-            </IsAdmin>
+            </PrivateRoute>
           }
         />
         <Route
           path="/stash/:id"
           element={
-            <IsAdmin>
+            <PrivateRoute>
               <ItemDetails />
-            </IsAdmin>
+            </PrivateRoute>
           }
         />
         <Route

@@ -11,6 +11,7 @@ const DailiesPage = () => {
   const [completeQuestsDisplay, setCompleteQuestsDisplay] = useState(completeQuests);
   const [incompleteQuests, setIncompleteQuests] = useState([]);
   const [incompleteQuestsDisplay, setIncompleteQuestsDisplay] = useState(incompleteQuests);
+  const [isLoading, setIsLoading] = useState(true);
   const { fetchWithToken } = useContext(AuthContext);
   const { characterId } = useParams();
   const toast = useToast();
@@ -54,6 +55,7 @@ const DailiesPage = () => {
         setCompleteQuestsDisplay(completeQuestsArray);
         setIncompleteQuests(incompleteQuestsArray);
         setIncompleteQuestsDisplay(incompleteQuestsArray);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -61,6 +63,7 @@ const DailiesPage = () => {
   };
 
   const handleChange = async (uid, value) => {
+    setIsLoading(true);
     const isComplete = completeQuests.find((quest) => quest.uid === uid);
     const isIncomplete = incompleteQuests.find((quest) => quest.uid === uid);
     if (isComplete && value === true) {
@@ -73,6 +76,7 @@ const DailiesPage = () => {
       if (response.status === 202) {
         await fetchInfo();
         toast({ title: 'Quest updated!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -84,6 +88,7 @@ const DailiesPage = () => {
   }, [characterId]);
 
   const levelUp = async (id) => {
+    setIsLoading(true);
     try {
       const response = await fetchWithToken(`/characters/${id}/levelUp`, 'PUT');
       if (response.status === 202) {
@@ -96,6 +101,7 @@ const DailiesPage = () => {
   };
 
   const resetServer = async (id) => {
+    setIsLoading(true);
     try {
       const response = await fetchWithToken(`/characters/${id}/questReset`, 'PUT');
       if (response.status === 202) {
@@ -124,7 +130,7 @@ const DailiesPage = () => {
             </Text>
             <Flex direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
               <Link to="/dashboard">
-                <Button backgroundColor={'#005C5C'} color="gold" margin="1em 0" colorScheme="green">
+                <Button isLoading={isLoading} backgroundColor={'#005C5C'} color="gold" margin="1em 0" colorScheme="green">
                   Back to your characters
                 </Button>
               </Link>
@@ -134,11 +140,12 @@ const DailiesPage = () => {
                 onClick={() => {
                   levelUp(character._id);
                 }}
+                isLoading={isLoading}
                 isDisabled={character.level >= 150}
               >
                 Level Up Character
               </Button>
-              <Button colorScheme="red" onClick={() => resetServer(character._id)}>
+              <Button isLoading={isLoading} colorScheme="red" onClick={() => resetServer(character._id)}>
                 Manual Server Reset
               </Button>
             </Flex>

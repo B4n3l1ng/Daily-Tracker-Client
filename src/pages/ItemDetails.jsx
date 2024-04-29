@@ -71,9 +71,15 @@ const ItemDetails = () => {
             <Text color={itemData.quantity === 0 ? 'red' : null}>Quantity available: {itemData.quantity}</Text>
             <br />
 
-            {itemData.donatedBy.length !== 0 ? <Text>Donated by: {itemData.donatedBy.map((name) => `${name} `)}</Text> : undefined}
+            {itemData.donatedBy.length !== 0 && itemData.donatedBy[0] !== '' ? (
+              <Text>Donated by: {itemData.donatedBy.map((name) => `${name} `)}</Text>
+            ) : undefined}
             <br />
             {itemData.stashToon?.length > 1 ? <Text>On toon {itemData.stashToon}</Text> : undefined}
+
+            <Text fontWeight={'bold'} color="blue">
+              If you're interested in this item, please contact Eunice, Lord_Z or devZey on discord or in game.
+            </Text>
             <Flex justifyContent={'center'} alignContent={'center'} margin="1em 0">
               {isAdmin && (
                 <EditItem

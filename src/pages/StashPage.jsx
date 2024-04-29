@@ -104,9 +104,12 @@ const StashPage = () => {
                   New Item
                 </Button>
               )}
-              <Link to="/removals">
-                <Button colorScheme="purple">Removals</Button>
-              </Link>
+              {isAdmin && (
+                <Link to="/removals">
+                  <Button colorScheme="purple">Removals</Button>
+                </Link>
+              )}
+
               <Link to="/dashboard">
                 <Button colorScheme="green">Dashboard Page</Button>
               </Link>
