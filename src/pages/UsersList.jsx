@@ -161,7 +161,7 @@ const UsersList = () => {
                 </Link>
               )}
               <Link to="/dashboard">
-                <Button colorScheme="green">Dashboard Page</Button>
+                <Button colorScheme="green">Characters Page</Button>
               </Link>
             </Flex>
           </Box>

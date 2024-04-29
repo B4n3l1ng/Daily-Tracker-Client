@@ -38,7 +38,11 @@ const RemovalsPage = () => {
             <Button colorScheme="blue">Stash</Button>
           </Link>
           <Link to="/dashboard">
-            <Button colorScheme="green">Dashboard Page</Button>
+            <Button colorScheme="green">Characters Page</Button>
+          </Link>
+
+          <Link to="/users">
+            <Button colorScheme="orange">Users dashboard</Button>
           </Link>
         </Flex>
       </Box>

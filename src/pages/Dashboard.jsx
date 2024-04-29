@@ -51,6 +51,18 @@ const Dashboard = () => {
               <Button colorScheme="green">Alliance Stash</Button>
             </Link>
 
+            {isAdmin && (
+              <Link to="/removals">
+                <Button colorScheme="purple">Removals</Button>
+              </Link>
+            )}
+
+            {isAdmin && (
+              <Link to="/users">
+                <Button colorScheme="orange">Users dashboard</Button>
+              </Link>
+            )}
+
             <CreateCharacter onReload={fetchCharacters} />
           </Flex>
 

@@ -109,9 +109,14 @@ const StashPage = () => {
                   <Button colorScheme="purple">Removals</Button>
                 </Link>
               )}
+              {isAdmin && (
+                <Link to="/users">
+                  <Button colorScheme="orange">Users dashboard</Button>
+                </Link>
+              )}
 
               <Link to="/dashboard">
-                <Button colorScheme="green">Dashboard Page</Button>
+                <Button colorScheme="green">Characters Page</Button>
               </Link>
             </Flex>
             <Flex alignItems={'center'} justifyContent={'space-evenly'} width="90%" gap="2em">
