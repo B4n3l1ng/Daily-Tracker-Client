@@ -33,7 +33,15 @@ const QuestCard = ({ quest, onMove, isLoading }) => {
       <Text fontSize="xl" as="b" mb="2">
         {quest.name}
       </Text>
-      <Text fontSize="lg">{quest.startingNPC}</Text>
+      <Text fontSize="lg" color={quest.startingNPC.includes('https') ? 'blue' : undefined}>
+        {quest.startingNPC.includes('https') ? (
+          <a href={quest.startingNPC} target="_blank">
+            {quest.startingNPC}
+          </a>
+        ) : (
+          quest.startingNpc
+        )}
+      </Text>
       <Text fontSize="lg">{quest.requirements.length > 0 ? quest.requirements : undefined}</Text>
       <br />
       <Button
