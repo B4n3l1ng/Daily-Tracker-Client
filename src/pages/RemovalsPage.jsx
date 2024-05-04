@@ -1,19 +1,20 @@
-import { Box, Button, Container, Flex, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { Link } from 'react-router-dom';
 
 const RemovalsPage = () => {
-  const { logout, fetchWithToken } = useContext(AuthContext);
+  const { fetchWithToken } = useContext(AuthContext);
   const [removals, setRemovals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchRemovals = async () => {
     try {
       const response = await fetchWithToken('/items/removals');
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
         setRemovals(data);
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -30,52 +31,42 @@ const RemovalsPage = () => {
         <Text fontWeight={'bold'} fontSize={'4xl'} align={'center'}>
           Item Removals
         </Text>
-        <Flex justifyContent={'space-evenly'} width="100%">
-          <Button colorScheme="red" onClick={logout}>
-            Logout
-          </Button>
-          <Link to="/stash">
-            <Button colorScheme="blue">Stash</Button>
-          </Link>
-          <Link to="/dashboard">
-            <Button colorScheme="green">Characters Page</Button>
-          </Link>
-
-          <Link to="/users">
-            <Button colorScheme="orange">Users dashboard</Button>
-          </Link>
-        </Flex>
       </Box>
-
-      <TableContainer>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Item Name</Th>
-              <Th>Item Type</Th>
-              <Th>Quantity</Th>
-              <Th>Given to</Th>
-              <Th>Given by</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {removals.map((item) => {
-              return (
-                <Tr key={item._id}>
-                  <Td>{item.itemType === 'Charm Part' ? `${item.itemName} - ${item.itemCharmPartType}` : item.itemName}</Td>
-                  <Td>{item.itemType}</Td>
-                  <Td>{item.quantityRemoved}</Td>
-                  <Td>
-                    {typeof item.givenTo === 'string' && item.givenTo}
-                    {typeof item.removedBy === 'string' && item.removedBy}
-                  </Td>
-                  <Td>{typeof item.removedBy === 'object' && item.removedBy.username}</Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      {isLoading ? (
+        <Flex width="100%" height={'60vh'} alignContent={'center'}>
+          <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        </Flex>
+      ) : (
+        <TableContainer>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>Item Name</Th>
+                <Th>Item Type</Th>
+                <Th>Quantity</Th>
+                <Th>Given to</Th>
+                <Th>Given by</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {removals.map((item) => {
+                return (
+                  <Tr key={item._id}>
+                    <Td>{item.itemType === 'Charm Part' ? `${item.itemName} - ${item.itemCharmPartType}` : item.itemName}</Td>
+                    <Td>{item.itemType}</Td>
+                    <Td>{item.quantityRemoved}</Td>
+                    <Td>
+                      {typeof item.givenTo === 'string' && item.givenTo}
+                      {typeof item.removedBy === 'string' && item.removedBy}
+                    </Td>
+                    <Td>{typeof item.removedBy === 'object' && item.removedBy.username}</Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
     </Container>
   );
 };

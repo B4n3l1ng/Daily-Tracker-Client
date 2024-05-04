@@ -141,29 +141,15 @@ const UsersList = () => {
         </AlertDialogOverlay>
       </AlertDialog>
       {isLoading ? (
-        <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        <Flex width="100%" height={'90vh'} alignContent={'center'}>
+          <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        </Flex>
       ) : (
         <Container maxW="xxl" centerContent>
           <Box marginBottom={'1em'} width="100%" d="flex" justifyContent="center" p={3} backgroundColor="transparent">
             <Text marginBottom={'1em'} fontWeight={'bold'} fontSize={'4xl'} align={'center'}>
               Registered Users
             </Text>
-            <Flex justifyContent={'space-evenly'} width="100%">
-              <Button colorScheme="red" onClick={logout}>
-                Logout
-              </Button>
-              <Link to="/stash">
-                <Button colorScheme="blue">Stash</Button>
-              </Link>
-              {isAdmin && (
-                <Link to="/removals">
-                  <Button colorScheme="purple">Removals</Button>
-                </Link>
-              )}
-              <Link to="/dashboard">
-                <Button colorScheme="green">Characters Page</Button>
-              </Link>
-            </Flex>
           </Box>
           <Flex>
             <Text m={3} fontWeight={'bold'}>

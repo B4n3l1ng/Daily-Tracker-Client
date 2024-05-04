@@ -10,10 +10,12 @@ import ItemDetails from './pages/ItemDetails';
 import IsAdmin from './components/isAdmin';
 import RemovalsPage from './pages/RemovalsPage';
 import UsersList from './pages/UsersList';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
     <div className="App">
+      <Navbar />
       <Routes>
         <Route
           path="/"

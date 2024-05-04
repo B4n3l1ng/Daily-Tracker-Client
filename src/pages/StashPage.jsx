@@ -85,7 +85,9 @@ const StashPage = () => {
   return (
     <>
       {isLoading ? (
-        <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        <Flex width="100%" height={'90vh'} alignContent={'center'}>
+          <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        </Flex>
       ) : (
         <>
           {isAdmin && <NewItemModal onReload={fetchItems} isOpen={isOpen} onClose={onClose} />}
@@ -96,28 +98,11 @@ const StashPage = () => {
               </Text>
             </Box>
             <Flex justifyContent={'space-evenly'} width="100%">
-              <Button colorScheme="red" onClick={logout} marginBottom={'1em'}>
-                Logout
-              </Button>
               {isAdmin && (
                 <Button onClick={onOpen} colorScheme="blue" marginBottom={'1em'}>
                   New Item
                 </Button>
               )}
-              {isAdmin && (
-                <Link to="/removals">
-                  <Button colorScheme="purple">Removals</Button>
-                </Link>
-              )}
-              {isAdmin && (
-                <Link to="/users">
-                  <Button colorScheme="orange">Users dashboard</Button>
-                </Link>
-              )}
-
-              <Link to="/dashboard">
-                <Button colorScheme="green">Characters Page</Button>
-              </Link>
             </Flex>
             <Flex alignItems={'center'} justifyContent={'space-evenly'} width="90%" gap="2em">
               <Menu closeOnSelect={false}>

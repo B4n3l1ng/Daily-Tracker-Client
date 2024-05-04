@@ -34,7 +34,9 @@ const Dashboard = () => {
   return (
     <>
       {isLoading ? (
-        <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        <Flex width="100%" height={'90vh'} alignContent={'center'}>
+          <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        </Flex>
       ) : (
         <Container maxW="xxl" centerContent>
           <Box d="flex" justifyContent={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
@@ -42,30 +44,6 @@ const Dashboard = () => {
               Dashboard
             </Text>
           </Box>
-          <Flex width="100%" justifyContent={'space-evenly'}>
-            <Button colorScheme="red" onClick={logout}>
-              Logout
-            </Button>
-
-            <Link to="/stash">
-              <Button colorScheme="green">Alliance Stash</Button>
-            </Link>
-
-            {isAdmin && (
-              <Link to="/removals">
-                <Button colorScheme="purple">Removals</Button>
-              </Link>
-            )}
-
-            {isAdmin && (
-              <Link to="/users">
-                <Button colorScheme="orange">Users dashboard</Button>
-              </Link>
-            )}
-
-            <CreateCharacter onReload={fetchCharacters} />
-          </Flex>
-
           <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
             <List list={characterList} onReload={fetchCharacters} />{' '}
           </Box>

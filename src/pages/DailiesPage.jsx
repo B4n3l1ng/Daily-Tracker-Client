@@ -128,13 +128,7 @@ const DailiesPage = () => {
               {character.name}
               {"'"}s Dailies, Level {character.level}
             </Text>
-            <Flex direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-              <Link to="/dashboard">
-                <Button isLoading={isLoading} backgroundColor={'#005C5C'} color="gold" margin="1em 0" colorScheme="green">
-                  Back to your characters
-                </Button>
-              </Link>
-
+            <Flex direction={'row'} justifyContent={'space-evenly'} alignItems={'center'} margin={'0.6em'}>
               <Button
                 colorScheme="yellow"
                 onClick={() => {

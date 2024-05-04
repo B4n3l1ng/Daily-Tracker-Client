@@ -34,7 +34,9 @@ const ItemDetails = () => {
   return (
     <>
       {!itemData && !errorMessage ? (
-        <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        <Flex width="100%" height={'90vh'} alignContent={'center'}>
+          <Spinner margin={'auto'} thickness="13px" speed="0.95s" emptyColor="gray.200" color="green.500" size="xl" />
+        </Flex>
       ) : errorMessage ? (
         <Box width="50%" height="100px" margin={'auto'} textAlign={'center'}>
           <Alert status="error">

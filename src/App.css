@@ -2,7 +2,10 @@
 
 .App {
   min-height: 100vh;
-  display: flex;
   font-family: 'work sans';
   background-color: #e6e6fa;
+}
+
+.active {
+  display: none;
 }
