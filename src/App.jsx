@@ -11,6 +11,7 @@ import IsAdmin from './components/isAdmin';
 import RemovalsPage from './pages/RemovalsPage';
 import UsersList from './pages/UsersList';
 import Navbar from './components/Navbar';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
             </IsAdmin>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
