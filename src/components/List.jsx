@@ -1,21 +1,5 @@
 /* eslint-disable react/prop-types */
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  useToast,
-  useMediaQuery,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Text, useToast, Menu, MenuButton, MenuList, MenuItem, useBreakpointValue } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Auth.context';

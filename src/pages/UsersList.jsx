@@ -27,11 +27,10 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
 import { CheckIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
 
 const UsersList = () => {
-  const { fetchWithToken, logout, isAdmin } = useContext(AuthContext);
+  const { fetchWithToken, logout } = useContext(AuthContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef();
@@ -121,7 +120,7 @@ const UsersList = () => {
               Delete User
             </AlertDialogHeader>
 
-            <AlertDialogBody>Are you sure? You can't undo this action afterwards.</AlertDialogBody>
+            <AlertDialogBody>Are you sure? You can&apos;t undo this action afterwards.</AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>

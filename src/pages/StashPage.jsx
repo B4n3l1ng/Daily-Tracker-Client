@@ -9,7 +9,6 @@ import {
   InputLeftAddon,
   Menu,
   MenuButton,
-  MenuItem,
   MenuItemOption,
   MenuList,
   MenuOptionGroup,
@@ -20,7 +19,6 @@ import {
 } from '@chakra-ui/react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import NewItemModal from '../components/NewItemModal';
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons';
@@ -32,7 +30,7 @@ const StashPage = () => {
   const [isLoadingQuery, setIsLoadingQuery] = useState(false);
   const [originalData, setOriginalData] = useState();
   const [items, setItems] = useState([]);
-  const { fetchWithToken, logout, isAdmin } = useContext(AuthContext);
+  const { fetchWithToken, isAdmin } = useContext(AuthContext);
   const [query, setQuery] = useState('');
 
   const fetchItems = async () => {
@@ -90,7 +88,7 @@ const StashPage = () => {
         </Flex>
       ) : (
         <>
-          {isAdmin && <NewItemModal onReload={fetchItems} isOpen={isOpen} onClose={onClose} />}
+          {isAdmin && <NewItemModal isOpen={isOpen} onClose={onClose} />}
           <Container maxW="xxl" centerContent>
             <Box d="flex" justifyContent={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
               <Text fontWeight={'bold'} fontSize={'4xl'} align={'center'}>

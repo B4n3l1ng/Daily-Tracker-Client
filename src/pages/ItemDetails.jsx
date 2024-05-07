@@ -80,7 +80,7 @@ const ItemDetails = () => {
             {itemData.stashToon?.length > 1 ? <Text>On toon {itemData.stashToon}</Text> : undefined}
 
             <Text fontWeight={'bold'} color="blue">
-              If you're interested in this item, please contact Eunice, Lord_Z or devZey on discord or in game.
+              If you&apos;re interested in this item, please contact Eunice, Lord_Z or devZey on discord or in game.
             </Text>
             <Flex justifyContent={'center'} alignContent={'center'} margin="1em 0">
               {isAdmin && (

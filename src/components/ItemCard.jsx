@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { Box, Button, Text } from '@chakra-ui/react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ItemCard = ({ _id, type, donatedBy, faction, charmPartType, itemName, quantity }) => {

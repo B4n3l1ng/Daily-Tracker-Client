@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import NotFoundImg from '../assets/NotFoundPowa.jpg';
 
 const NotFound = () => {

@@ -2,7 +2,7 @@
 import { Box, Button, Container, Flex, Text, useToast } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import QuestBoard from '../components/QuestBoard';
 
 const DailiesPage = () => {
@@ -86,6 +86,12 @@ const DailiesPage = () => {
   useEffect(() => {
     fetchInfo();
   }, [characterId]);
+
+  useEffect(() => {
+    if (character) {
+      document.title = `${character.name}'s Dailies`;
+    }
+  }, [character]);
 
   const levelUp = async (id) => {
     setIsLoading(true);

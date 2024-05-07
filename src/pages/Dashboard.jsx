@@ -1,14 +1,13 @@
-import { Box, Button, Container, Flex, Spinner, Text } from '@chakra-ui/react';
+import { Box, Container, Flex, Spinner, Text } from '@chakra-ui/react';
 
 import CreateCharacter from '../components/CreateCharacter';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import List from '../components/List';
-import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [characterList, setCharacterList] = useState([]);
-  const { fetchWithToken, logout, isAdmin } = useContext(AuthContext);
+  const { fetchWithToken } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const fetchCharacters = async () => {
     try {
@@ -29,6 +28,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchCharacters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -43,6 +43,9 @@ const Dashboard = () => {
             <Text fontWeight={'bold'} fontSize={'4xl'} align={'center'}>
               Dashboard
             </Text>
+            <Flex justifyContent={'center'} marginTop="1em">
+              <CreateCharacter />
+            </Flex>
           </Box>
           <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>
             <List list={characterList} onReload={fetchCharacters} />{' '}

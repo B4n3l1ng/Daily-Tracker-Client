@@ -1,7 +1,6 @@
-import { Box, Button, Container, Flex, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Box, Container, Flex, Spinner, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
-import { Link } from 'react-router-dom';
 
 const RemovalsPage = () => {
   const { fetchWithToken } = useContext(AuthContext);

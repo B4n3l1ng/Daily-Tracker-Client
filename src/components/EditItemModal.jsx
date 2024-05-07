@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Button,
@@ -16,7 +17,6 @@ import {
   NumberInput,
   NumberInputField,
   NumberInputStepper,
-  Text,
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';

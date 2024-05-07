@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { Navigate } from 'react-router-dom';
 import { Flex, Spinner } from '@chakra-ui/react';

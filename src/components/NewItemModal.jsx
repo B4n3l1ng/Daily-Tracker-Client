@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Button,
   FormControl,
@@ -21,7 +22,7 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
 
-const NewItemModal = ({ onReload, isOpen, onClose }) => {
+const NewItemModal = ({ isOpen, onClose }) => {
   const factions = ['Jadeon', 'Skysong', 'Mage', 'Vim', 'Lupin', 'Modo', 'Arden', 'Balo', 'Rayan', 'Celan', 'Forta', 'Voida'];
 
   const [type, setType] = useState('');
