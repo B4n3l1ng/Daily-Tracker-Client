@@ -44,7 +44,7 @@ const Dashboard = () => {
               Dashboard
             </Text>
             <Flex justifyContent={'center'} marginTop="1em">
-              <CreateCharacter />
+              <CreateCharacter onReload={fetchCharacters} />
             </Flex>
           </Box>
           <Box d="flex" flexDirection={'column'} alignItems={'center'} justifyItems={'center'} p={3} backgroundColor={'#E6E6FA'} w={'100%'}>

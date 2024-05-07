@@ -24,27 +24,32 @@ import { AuthContext } from '../contexts/Auth.context';
 
 const CreateCharacter = ({ onReload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [name, setName] = useState('');
-  const [level, setLevel] = useState(1);
-  const [isAscended, setIsAscended] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { fetchWithToken } = useContext(AuthContext);
   const toast = useToast();
 
+  const [reqBody, setReqBody] = useState({ name: '', level: 1, isAscended: false });
+
+  const handleInput = (value, name) => {
+    setReqBody((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const onSubmit = async () => {
     setIsLoading(true);
     try {
-      const reqBody = { name, level, isAscended };
       const response = await fetchWithToken('/characters', 'POST', reqBody);
       if (response.status === 201) {
         toast({ title: 'Creation Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
         setIsLoading(false);
-        setName('');
-        setLevel(1);
+        setReqBody({ name: '', level: 1, isAscended: false });
         onClose();
         await onReload();
       }
     } catch (error) {
+      console.log(error);
       toast({
         title: 'Creation Failed',
         status: 'warning',
@@ -71,19 +76,16 @@ const CreateCharacter = ({ onReload }) => {
           <ModalBody>
             <FormControl id="name" isRequired marginBottom="1em">
               <FormLabel>Name:</FormLabel>
-              <Input placeholder="Character name" onChange={(event) => setName(event.target.value)} value={name} />
+              <Input
+                placeholder="Character name"
+                name="name"
+                onChange={(event) => handleInput(event.target.value, event.target.name)}
+                value={reqBody.name}
+              />
             </FormControl>
             <FormControl id="level" isRequired marginBottom="1em">
               <FormLabel>Level:</FormLabel>
-              <NumberInput
-                w={'100%'}
-                onChange={(value) => {
-                  setLevel(value);
-                }}
-                value={level}
-                min={1}
-                max={150}
-              >
+              <NumberInput w={'100%'} name="level" onChange={(value) => handleInput(value, 'level')} value={reqBody.level} min={1} max={150}>
                 <NumberInputField />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
@@ -92,7 +94,12 @@ const CreateCharacter = ({ onReload }) => {
               </NumberInput>
             </FormControl>
             <FormControl id="ascended">
-              <Checkbox checked={isAscended} onChange={(event) => setIsAscended(event.target.checked)} colorScheme="green">
+              <Checkbox
+                name="isAscended"
+                checked={reqBody.isAscended}
+                onChange={(event) => handleInput(event.target.checked, event.target.name)}
+                colorScheme="green"
+              >
                 Ascended?
               </Checkbox>
             </FormControl>
