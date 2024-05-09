@@ -2,8 +2,9 @@
 import { Box, Button } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
 import { useDrag } from 'react-dnd';
+import QuestDetailsModal from './QuestDetailsModal';
 
-const QuestCard = ({ quest, onMove, isLoading }) => {
+const QuestCard = ({ quest, onMove, isLoading, setQuery }) => {
   const [{ isDragging }, drag] = useDrag({
     type: 'QUEST_CARD', // Define the drag item type
     item: { uid: quest.uid },
@@ -42,12 +43,16 @@ const QuestCard = ({ quest, onMove, isLoading }) => {
           quest.startingNpc
         )}
       </Text>
-      <Text fontSize="lg">{quest.requirements.length > 0 ? quest.requirements : undefined}</Text>
+      <br />
+      <QuestDetailsModal quest={quest} />
       <br />
       <Button
         colorScheme={quest.isComplete ? 'yellow' : 'green'}
         /* margin={'0 20%'} */
-        onClick={() => onMove(quest.uid, quest.isComplete ? 'Incomplete' : 'Complete')}
+        onClick={() => {
+          onMove(quest.uid, quest.isComplete ? 'Incomplete' : 'Complete');
+          setQuery('');
+        }}
         isLoading={isLoading}
       >
         Set as {quest.isComplete ? 'Incomplete' : 'Complete'}

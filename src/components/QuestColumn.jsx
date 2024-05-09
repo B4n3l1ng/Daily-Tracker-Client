@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import QuestCard from './QuestCard';
 import { Box, Button, Input } from '@chakra-ui/react';
@@ -17,6 +17,12 @@ const QuestColumn = ({ title, quests, onMove, handleSearch, isLoading }) => {
       onMove(item.uid, title);
     },
   });
+
+  useEffect(() => {
+    if (!isLoading) {
+      setQuery('');
+    }
+  }, [isLoading]);
 
   // Logic to calculate which quests to display based on current page
   const indexOfLastQuest = currentPage * questsPerPage;
