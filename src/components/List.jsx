@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Auth.context';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
+import { success, fail } from '../utils/ToastIcons';
+
 const List = ({ list, onReload }) => {
   const { fetchWithToken } = useContext(AuthContext);
   const toast = useToast();
@@ -15,11 +17,20 @@ const List = ({ list, onReload }) => {
     try {
       const response = await fetchWithToken(`/characters/${id}`, 'DELETE');
       if (response.status === 202) {
-        toast({ title: 'Character Deleted', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Character Deleted', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         await onReload();
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: 'Update Failed',
+        status: 'warning',
+        description: error.response?.data?.message || 'Internal Server Error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+        icon: fail,
+      });
     }
   };
 
@@ -27,11 +38,20 @@ const List = ({ list, onReload }) => {
     try {
       const response = await fetchWithToken(`/characters/${id}/levelUp`, 'PUT');
       if (response.status === 202) {
-        toast({ title: 'Character leveled up!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Character leveled up!', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         await onReload();
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: 'Update Failed',
+        status: 'warning',
+        description: error.response?.data?.message || 'Internal Server Error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+        icon: fail,
+      });
     }
   };
 
@@ -39,11 +59,27 @@ const List = ({ list, onReload }) => {
     try {
       const response = await fetchWithToken(`/characters/${id}/ascend`, 'PUT');
       if (response.status === 202) {
-        toast({ title: 'Character ascended and reset to 15!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({
+          title: 'Character ascended and reset to 15!',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+          icon: success,
+        });
         await onReload();
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: 'Update Failed',
+        status: 'warning',
+        description: error.response?.data?.message || 'Internal Server Error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+        icon: fail,
+      });
     }
   };
 

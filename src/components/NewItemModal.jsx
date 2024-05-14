@@ -21,6 +21,7 @@ import {
 import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
+import { success, fail } from '../utils/ToastIcons';
 
 const NewItemModal = ({ isOpen, onClose }) => {
   const factions = ['Jadeon', 'Skysong', 'Mage', 'Vim', 'Lupin', 'Modo', 'Arden', 'Balo', 'Rayan', 'Celan', 'Forta', 'Voida'];
@@ -51,17 +52,17 @@ const NewItemModal = ({ isOpen, onClose }) => {
       };
       const response = await fetchWithToken('/items', 'POST', reqBody);
       if (response.status === 201) {
-        toast({ title: 'Item Creation Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item Creation Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         const data = await response.json();
         setIsLoading(false);
         onClose();
         navigate(`/stash/${data._id}`);
       } else {
-        toast({ title: 'Item Creation Failed, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item Creation Failed, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
         setIsLoading(false);
       }
     } catch (error) {
-      toast({ title: 'Item Creation Failed, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Item Creation Failed, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
       setIsLoading(false);
       console.log(error);
     }

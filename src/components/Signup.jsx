@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Auth.context';
 import axios from 'axios';
-
+import { success, fail } from '../utils/ToastIcons';
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -22,12 +22,12 @@ const Signup = () => {
   const handleSubmit = async () => {
     setIsLoading(true);
     if (!username || !password || !passwordConfirm) {
-      toast({ title: 'Please fill all the fields', status: 'warning', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Please fill all the fields', status: 'warning', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
       setIsLoading(false);
       return;
     }
     if (password !== passwordConfirm) {
-      toast({ title: 'Passwords do bot match', status: 'warning', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Passwords do bot match', status: 'warning', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
       setIsLoading(false);
       return;
     }
@@ -39,7 +39,7 @@ const Signup = () => {
 
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, reqBody, config);
       if (response.status === 201) {
-        toast({ title: 'Registration Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Registration Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         const { data } = response;
         saveToken(data.token);
         setIsLoading(false);
@@ -53,6 +53,7 @@ const Signup = () => {
         duration: 5000,
         isClosable: true,
         position: 'bottom',
+        icon: fail,
       });
       setIsLoading(false);
     }

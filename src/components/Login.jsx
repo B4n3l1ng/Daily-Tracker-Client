@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/Auth.context';
+import { success, fail } from '../utils/ToastIcons';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -24,7 +25,7 @@ const Login = () => {
   const handleSubmit = async () => {
     setIsLoading(true);
     if (!username || !password) {
-      toast({ title: 'Please fill all the fields', status: 'warning', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Please fill all the fields', status: 'warning', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
       setIsLoading(false);
       return;
     }
@@ -35,7 +36,7 @@ const Login = () => {
 
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, reqBody, config);
       if (response.status === 200) {
-        toast({ title: 'Login Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Login Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         const { data } = response;
         saveToken(data.token);
         setIsLoading(false);
@@ -50,6 +51,7 @@ const Login = () => {
           duration: 5000,
           isClosable: true,
           position: 'bottom',
+          icon: fail,
         });
         setIsLoading(false);
       }

@@ -22,6 +22,7 @@ import { useContext, useEffect, useState } from 'react';
 import ItemCard from '../components/ItemCard';
 import NewItemModal from '../components/NewItemModal';
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons';
+import { fail } from '../utils/ToastIcons';
 
 const StashPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -60,7 +61,7 @@ const StashPage = () => {
     } catch (error) {
       console.log(error);
 
-      toast({ title: 'Search Failed, please try again.', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Search Failed, please try again.', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
       setIsLoadingQuery(false);
     }
   };

@@ -21,6 +21,7 @@ import {
 } from '@chakra-ui/react';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
+import { success, fail } from '../utils/ToastIcons';
 
 const CreateCharacter = ({ onReload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,7 +43,14 @@ const CreateCharacter = ({ onReload }) => {
     try {
       const response = await fetchWithToken('/characters', 'POST', reqBody);
       if (response.status === 201) {
-        toast({ title: 'Creation Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({
+          title: 'Creation Successful',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+          position: 'bottom',
+          icon: success,
+        });
         setIsLoading(false);
         setReqBody({ name: '', level: 1, isAscended: false });
         onClose();
@@ -53,10 +61,11 @@ const CreateCharacter = ({ onReload }) => {
       toast({
         title: 'Creation Failed',
         status: 'warning',
-        description: error.response.data.message,
+        description: error.response?.data?.message || 'Internal Server Error',
         duration: 5000,
         isClosable: true,
         position: 'bottom',
+        icon: fail,
       });
 
       setIsLoading(false);

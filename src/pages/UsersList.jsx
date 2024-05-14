@@ -28,6 +28,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { CheckIcon, ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
+import { success, fail } from '../utils/ToastIcons';
 
 const UsersList = () => {
   const { fetchWithToken, logout } = useContext(AuthContext);
@@ -60,14 +61,14 @@ const UsersList = () => {
         setUserNumber(data.length);
         setIsLoading(false);
       } else if (response.status === 401) {
-        toast({ title: 'Action unavailable unless admin', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Action unavailable unless admin', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
         setTimeout(() => {
           logout();
         }, 3000);
       }
     } catch (error) {
       console.log(error);
-      toast({ title: 'Internal Server Error, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Internal Server Error, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
     }
   };
 
@@ -77,15 +78,15 @@ const UsersList = () => {
       const response = await fetchWithToken(`/users/admin/${id}`, 'PUT');
       if (response.status === 200) {
         const data = await response.json();
-        toast({ title: data, status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: data, status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         await fetchUsers();
       } else if (response.status === 404) {
-        toast({ title: 'User not found', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'User not found', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
         await fetchUsers();
       }
     } catch (error) {
       console.log(error);
-      toast({ title: 'Internal Server Error, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Internal Server Error, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
     }
   };
 
@@ -93,17 +94,17 @@ const UsersList = () => {
     try {
       const response = await fetchWithToken(`/users/${id}`, 'DELETE');
       if (response.status === 200) {
-        toast({ title: 'User deleted successfully', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'User deleted successfully', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         onClose();
         await fetchUsers();
       } else if (response.status === 404) {
-        toast({ title: 'User not found', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'User not found', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
         await fetchUsers();
         onClose();
       }
     } catch (error) {
       console.log(error);
-      toast({ title: 'Internal Server Error, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+      toast({ title: 'Internal Server Error, please try again', status: 'error', duration: 5000, isClosable: true, position: 'bottom', icon: fail });
     }
   };
 

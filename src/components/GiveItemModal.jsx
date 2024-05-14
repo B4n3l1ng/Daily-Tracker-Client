@@ -23,6 +23,8 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
 
+import { success, fail } from '../utils/ToastIcons';
+
 const GiveItemModal = ({ _id, originalQuantity, itemName, onReload }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [quantity, setQuantity] = useState(1);
@@ -38,18 +40,27 @@ const GiveItemModal = ({ _id, originalQuantity, itemName, onReload }) => {
       const reqBody = { quantity, player };
       const response = await fetchWithToken(`/items/${_id}/giveTo`, 'PUT', reqBody);
       if (response.status === 200) {
-        toast({ title: 'Item Removal Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item Removal Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         setIsLoading(false);
         onClose();
         onReload();
       } else if (response.status === 404) {
-        toast({ title: 'Item not Found', status: 'error', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item not Found', status: 'error', duration: 5000, isClosable: true, position: 'bottom', item: fail });
         setIsLoading(false);
         onClose();
         navigate('/stash');
       }
     } catch (error) {
       console.log(error);
+      toast({
+        title: 'Update Failed',
+        status: 'warning',
+        description: error.response?.data?.message || 'Internal Server Error',
+        duration: 5000,
+        isClosable: true,
+        position: 'bottom',
+        icon: fail,
+      });
     }
   };
 

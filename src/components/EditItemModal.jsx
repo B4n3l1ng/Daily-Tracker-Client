@@ -24,6 +24,8 @@ import { useContext, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useNavigate } from 'react-router-dom';
 
+import { success, fail } from '../utils/ToastIcons';
+
 const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [newName, setNewName] = useState(itemName);
@@ -40,7 +42,7 @@ const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) =>
       const reqBody = { newQuantity, newDonatedBy: newDonatedBy.split(' '), newStashToon, newName };
       const response = await fetchWithToken(`/items/${id}`, 'PUT', reqBody);
       if (response.status === 202) {
-        toast({ title: 'Item Update Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item Update Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         setIsLoading(false);
         onClose();
         await onReload();
@@ -50,10 +52,11 @@ const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) =>
       toast({
         title: 'Update Failed',
         status: 'warning',
-        description: error.response.data.message,
+        description: error.response?.data?.message || 'Internal Server Error',
         duration: 5000,
         isClosable: true,
         position: 'bottom',
+        icon: fail,
       });
       setIsLoading(false);
     }
@@ -63,7 +66,7 @@ const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) =>
     try {
       const response = await fetchWithToken(`/items/${id}`, 'DELETE');
       if (response.status === 202) {
-        toast({ title: 'Item Deletion Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Item Deletion Successful', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         setIsLoading(false);
         onClose();
         navigate('/stash');
@@ -73,10 +76,11 @@ const EditItem = ({ itemName, donatedBy, quantity, onReload, stashToon, id }) =>
       toast({
         title: 'Deletion Failed',
         status: 'warning',
-        description: error.response.data.message,
+        description: error.response?.data?.message || 'Internal Server Error',
         duration: 5000,
         isClosable: true,
         position: 'bottom',
+        icon: fail,
       });
     }
   };

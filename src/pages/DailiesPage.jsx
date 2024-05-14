@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../contexts/Auth.context';
 import { useParams } from 'react-router-dom';
 import QuestBoard from '../components/QuestBoard';
+import { success } from '../utils/ToastIcons';
 
 const DailiesPage = () => {
   const [character, setCharacter] = useState();
@@ -75,7 +76,7 @@ const DailiesPage = () => {
       const response = await fetchWithToken(`/characters/${character._id}/quest/${uid}`, 'PUT', { isComplete: value });
       if (response.status === 202) {
         await fetchInfo();
-        toast({ title: 'Quest updated!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Quest updated!', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         setIsLoading(false);
       }
     } catch (error) {
@@ -98,7 +99,7 @@ const DailiesPage = () => {
     try {
       const response = await fetchWithToken(`/characters/${id}/levelUp`, 'PUT');
       if (response.status === 202) {
-        toast({ title: 'Character leveled up!', status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: 'Character leveled up!', status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         await fetchInfo();
       }
     } catch (error) {
@@ -112,7 +113,7 @@ const DailiesPage = () => {
       const response = await fetchWithToken(`/characters/${id}/questReset`, 'PUT');
       if (response.status === 202) {
         const data = await response.json();
-        toast({ title: data.message, status: 'success', duration: 5000, isClosable: true, position: 'bottom' });
+        toast({ title: data.message, status: 'success', duration: 5000, isClosable: true, position: 'bottom', icon: success });
         await fetchInfo();
       }
     } catch (error) {
